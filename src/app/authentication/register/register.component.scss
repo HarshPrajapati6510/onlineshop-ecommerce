@@ -1,0 +1,15 @@
+@media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+    }
+.input-style{
+    min-height: 38px;
+    padding: 5px;
+    width: 100%; 
+    border: 1px solid #ced4da;
+    background: none;
+}
+.error{
+    border: 1px solid red;
+}

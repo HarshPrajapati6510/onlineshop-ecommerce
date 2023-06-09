@@ -1,0 +1,230 @@
+<!-- Checkout Start -->
+<div class="container-fluid">
+  <form name="billingaddress" #billingaddress="ngForm"  (ngSubmit)="(billingaddress.form.valid)&&(checkoutSubmit())">
+    <div class="row px-xl-5">
+      <div class="col-lg-8">
+        <div *ngFor="let item of forms; let i=index; let first=first; let last=last" [ngClass]="{'mb-5': last}">
+          <h5 class="section-title position-relative text-uppercase mb-3">
+            <span class="bg-secondary pr-3">{{item}}</span>
+          </h5>
+          <div class="bg-light p-30 mb-5">
+            <!-- <form name="billingaddress" #billingaddress="ngForm"> -->
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <label>First Name</label>
+                  <input class="form-control" type="text" placeholder="John" name="firstname" [(ngModel)]="billingAddress.firstname" required #firstname="ngModel"/>
+                  <div class="form-text text-danger" *ngIf="(firstname.hasError('required')&& firstname?.touched)||billingaddress.submitted">firstname required</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Last Name</label>
+                  <input class="form-control" type="text"  placeholder="Doe" name="lastname" [(ngModel)]="billingAddress.lastname" required #lastname="ngModel"/>
+                  <div class="form-text text-danger" *ngIf="(lastname.hasError('required')&& lastname?.touched)||billingaddress.submitted">lastname required</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>E-mail</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="example@email.com"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    name="email"
+                    [(ngModel)]="billingAddress.email"
+                    #email="ngModel"
+                    required
+                  />
+                  <div class="form-text text-danger" *ngIf="(email.hasError('required')&& email?.touched)||billingaddress.submitted">email required</div>
+                  <div class="form-text text-danger" *ngIf="email.hasError('pattern')">invalid email</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Mobile No</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="+123 456 789"
+                    pattern="^[0-9]+$"
+                    name="mobile" 
+                    #mobile="ngModel"
+                    [(ngModel)]="billingAddress.mobile"
+                    required
+                  />
+                  <div class="form-text text-danger" *ngIf="(mobile.hasError('required')&& mobile?.touched)||billingaddress.submitted">mobilenumber required</div>
+                  <div class="form-text text-danger" *ngIf="mobile.hasError('pattern')">only number allowed</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Address Line 1</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="123 Street"
+                    name="address1"
+                    #address1="ngModel"
+                    [(ngModel)]="billingAddress.address1"
+                    required
+                  />
+                  <div class="form-text text-danger" *ngIf="(address1.hasError('required')&& address1?.touched)||billingaddress.submitted">address1 required</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Address Line 2</label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    placeholder="123 Street"
+                    name="address2"
+                    #address2="ngModel"
+                    [(ngModel)]="billingAddress.address2"
+                    required
+                  />
+                  <div class="form-text text-danger" *ngIf="(address2.hasError('required')&& address2?.touched)||billingaddress.submitted">address2 required</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>Country</label>
+                  <select class="custom-select" #country="ngModel" name="country" [(ngModel)]="billingAddress.country" required>
+                    <option selected>United States</option>
+                    <option>Afghanistan</option>
+                    <option>Albania</option>
+                    <option>Algeria</option>
+                  </select>
+                  <div class="form-text text-danger" *ngIf="(country.hasError('required')&& country?.touched)||billingaddress.submitted">country required</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>City</label>
+                  <input class="form-control" type="text" placeholder="New York" name="city" #city="ngModel" [(ngModel)]="billingAddress.city" required/>
+                  <div class="form-text text-danger" *ngIf="(city.hasError('required')&& city?.touched)||billingaddress.submitted">city required</div>
+                </div>
+                <div class="col-md-6 form-group" >
+                  <label>State</label>
+                  <input class="form-control" type="text" placeholder="New York" name="state" #state="ngModel" [(ngModel)]="billingAddress.state" required/>
+                  <div class="form-text text-danger" *ngIf="(state.hasError('required')&& state?.touched)||billingaddress.submitted">state required</div>
+                </div>
+                <div class="col-md-6 form-group">
+                  <label>ZIP Code</label>
+                  <input class="form-control" type="text" placeholder="123" pattern="^[0-9]+$"
+                  name="zipcode" 
+                  #zipcode="ngModel"
+                  [(ngModel)]="billingAddress.zipcode"
+                  required/>
+                  <div class="form-text text-danger" *ngIf="(zipcode.hasError('required')&& zipcode?.touched)||billingaddress.submitted">zipcode required</div>
+                  <div class="form-text text-danger" *ngIf="zipcode.hasError('pattern')">only number allowed</div>
+                </div>
+                <div class="col-md-12 form-group" *ngIf="first">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="newaccount"
+                      name="create account"
+                    />
+                    <label class="custom-control-label" for="newaccount"
+                      >Create an account</label
+                    >
+                  </div>
+                </div>
+                <div class="col-md-12" *ngIf="first">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      type="checkbox"
+                      class="custom-control-input"
+                      id="shipto"
+                      [(ngModel)]="billingAddress.shipDiffAddress"
+                      name="diff address"
+                      (ngModelChange)="checkbox()"
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="shipto"
+                      data-toggle="collapse"
+                      data-target="#shipping-address"
+                      >Ship to different address</label
+                    >
+                  </div>
+                </div>
+              </div>
+            <!-- </form> -->
+          </div>
+        </div>
+        
+      </div>
+      <div class="col-lg-4">
+        <h5 class="section-title position-relative text-uppercase mb-3">
+          <span class="bg-secondary pr-3">Order Total</span>
+        </h5>
+        <div class="bg-light p-30 mb-5">
+          <div class="border-bottom">
+            <h6 class="mb-3">Products</h6>
+            <div class="d-flex justify-content-between" *ngFor="let product of prodcutTotalList;let i=index">
+              <p>{{product.title}} {{i+1}}</p>
+              <p>{{(product.price*product.quantity*currencyValue)|currency:currencyName}}</p>
+            </div>
+          </div>
+          <div class="border-bottom pt-3 pb-2">
+            <div class="d-flex justify-content-between mb-3">
+              <h6>Subtotal</h6>
+              <h6>{{(subTotal*currencyValue)|currency:currencyName}}</h6>
+            </div>
+            <div class="d-flex justify-content-between">
+              <h6 class="font-weight-medium">Shipping</h6>
+              <h6 class="font-weight-medium">{{10*currencyValue|currency:currencyName}}</h6>
+            </div>
+          </div>
+          <div class="pt-2">
+            <div class="d-flex justify-content-between mt-2">
+              <h5>Total</h5>
+              <h5>{{total*currencyValue|currency:currencyName}}</h5>
+            </div>
+          </div>
+        </div>
+        <div class="mb-5">
+          <h5 class="section-title position-relative text-uppercase mb-3">
+            <span class="bg-secondary pr-3">Payment</span>
+          </h5>
+          <div class="bg-light p-30">
+            <div class="form-group">
+              <div class="custom-control custom-radio">
+                <input
+                  type="radio"
+                  class="custom-control-input"
+                  name="payment"
+                  id="paypal"
+                />
+                <label class="custom-control-label" for="paypal">Paypal</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="custom-control custom-radio">
+                <input
+                  type="radio"
+                  class="custom-control-input"
+                  name="payment"
+                  id="directcheck"
+                />
+                <label class="custom-control-label" for="directcheck"
+                  >Direct Check</label
+                >
+              </div>
+            </div>
+            <div class="form-group mb-4">
+              <div class="custom-control custom-radio">
+                <input
+                  type="radio"
+                  class="custom-control-input"
+                  name="payment"
+                  id="banktransfer"
+                />
+                <label class="custom-control-label" for="banktransfer"
+                  >Bank Transfer</label
+                >
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-block btn-primary font-weight-bold py-3"
+            >
+              Place Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- Checkout End -->

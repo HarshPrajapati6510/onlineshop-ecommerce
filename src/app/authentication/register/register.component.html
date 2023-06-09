@@ -1,0 +1,129 @@
+<section  style="background-color: #eee;">
+    <div class="container h-100">
+      <div class="d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class=" d-flex justify-content-center" >
+                <div class="w-75 justify-content-center" >
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+                  <form class=" mx-1 mx-md-4 justify-content-center"  #registeForm="ngForm" name="registerform" (ngSubmit)="(registeForm.form.valid)&&registerUser(registeForm)">
+                    <div class="d-flex flex-row align-items-center  mb-4">
+                      <div class="form-outline flex-fill mb-0 ">
+                        <div class="form-text text-danger" *ngIf="(registeForm.submitted||firstName?.touched)&&firstName.hasError('required')">firstName required</div>
+                        <input type="text"  class="form-control" name="firstName" [(ngModel)]="registerData.firstName" #firstName="ngModel" required [ngClass]="{'error': registeForm.submitted||firstName?.touched&&firstName.hasError('required')}"/>
+                        <label class="form-label" for="form3Example1c">First Name</label>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <div class="form-outline flex-fill mb-0">
+                        <div class="form-text text-danger" *ngIf="(registeForm?.submitted||lastName?.touched)&&lastName.hasError('required')">lastName required</div>
+                        <input type="text"  class="form-control" #lastName="ngModel" [(ngModel)]="registerData.lastName" required name="lastName" [ngClass]="{'error': (registeForm?.submitted||lastName?.touched)&&lastName.hasError('required')}"/>
+                        <label class="form-label" for="form3Example1c">Last Name</label>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <div class="form-outline flex-fill mb-0">
+                        <div class="form-text text-danger" *ngIf="(registeForm?.submitted||mobile?.touched)&&mobile.hasError('required')">Mobile number required</div>
+                        <div class="form-text text-danger" *ngIf="mobile.hasError('pattern')">only number required</div>
+                        <input type="text"  class="form-control" #mobile="ngModel" name="mobile" required [(ngModel)]="registerData.mobile" pattern="^[0-9]+$" [ngClass]="{'error': (registeForm?.submitted||mobile?.touched)&&mobile.hasError('required')||mobile.hasError('pattern')}"/>
+                        <label class="form-label" for="form3Example1c" >Mobile</label>
+                      </div>
+                    </div>
+                    <!--Gender start-->
+                    <h6 class="mb-2 pb-1 align-self-center">Gender:</h6>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="female" id="femaleGender"
+                             checked  [(ngModel)]="registerData.gender" value="female"/>
+                          <label class="form-check-label" for="femaleGender" >Female</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="male" id="maleGender"
+                             [(ngModel)]="registerData.gender" value="male"/>
+                          <label class="form-check-label" for="maleGender">Male</label>
+                        </div>
+      
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="other" id="otherGender"
+                             [(ngModel)]="registerData.gender" value="other"/>
+                          <label class="form-check-label" for="otherGender" >Other</label>
+                        </div>
+                    </div>
+                    <!--Gender End-->
+                    <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <div class="form-text text-danger" *ngIf="(registeForm?.submitted||country?.touched)&&country.hasError('required')">country number required</div>
+                          <input type="text"  class="form-control" #country="ngModel" name="country" [(ngModel)]="registerData.address.country" required [ngClass]="{'error': (registeForm?.submitted||country?.touched)&&country.hasError('required')}"/>
+                          <label class="form-label" for="form3Example1c">Country</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <div class="form-text text-danger" *ngIf="(registeForm?.submitted||state?.touched)&&state.hasError('required')">state number required</div>
+                          <input type="text"  class="form-control" #state="ngModel" name="state" [(ngModel)]="registerData.address.state" required [ngClass]="{'error': (registeForm?.submitted||state?.touched)&&state.hasError('required')}"/>
+                          <label class="form-label" for="form3Example1c">State</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <div class="form-text text-danger" *ngIf="(registeForm?.submitted||city?.touched)&&city.hasError('required')">city number required</div>
+                          <input type="text"  class="form-control" #city="ngModel" name="city" [(ngModel)]="registerData.address.city" required [ngClass]="{'error': (registeForm?.submitted||city?.touched)&&city.hasError('required')}"/>
+                          <label class="form-label" for="form3Example1c">City</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <div class="form-text text-danger" *ngIf="(registeForm?.submitted||zipcode?.touched)&&zipcode.hasError('required')">zipcode number required</div>
+                          <div class="form-text text-danger" *ngIf="zipcode.hasError('pattern')">only number required</div>
+                          <input type="text"  class="form-control"  pattern="^[0-9]+$" #zipcode="ngModel" name="zipcode" [(ngModel)]="registerData.address.zipCode" required [ngClass]="{'error': (registeForm?.submitted||zipcode?.touched)&&zipcode.hasError('required')||zipcode.hasError('pattern')}"/>
+                          <label class="form-label" for="form3Example1c">Zipcode</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <div class="form-text text-danger" *ngIf="(registeForm?.submitted||address1?.touched)&&address1.hasError('required')">address1 number required</div>
+                          <input type="text"  class="form-control" #address1="ngModel" name="address1" required [(ngModel)]="registerData.address.line1" [ngClass]="{'error': (registeForm?.submitted||address1?.touched)&&address1.hasError('required')}"/>
+                          <label class="form-label" for="form3Example1c">Address line 1</label>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center mb-4">
+                        <div class="form-outline flex-fill mb-0">
+                          <div class="form-text text-danger" *ngIf="(registeForm?.submitted||address2?.touched)&&address2.hasError('required')">address2 number required</div>
+                          <input type="text"  class="form-control" #address2="ngModel" name="address2" required [(ngModel)]="registerData.address.line2" [ngClass]="{'error': (registeForm?.submitted||address2?.touched)&&address2.hasError('required')}"/>
+                          <label class="form-label" for="form3Example1c">Address line 2</label>
+                        </div>
+                      </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <div class="form-outline flex-fill mb-0">
+                        <div class="form-text text-danger" *ngIf="(registeForm?.submitted||email?.touched)&&email.hasError('required')">email  required</div>
+                        <div class="form-text text-danger" *ngIf="email.hasError('pattern')">email invalid</div>
+                        <input type="email" id="form3Example3c" class="form-control" #email="ngModel" name="email" [(ngModel)]="registerData.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" [ngClass]="{'error': (registeForm?.submitted||email?.touched)&&email.hasError('required')||email.hasError('pattern')}"/>
+                        <label class="form-label" for="form3Example3c">Your Email</label>
+                      </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <div class="form-outline flex-fill mb-0">
+                        <div class="form-text text-danger" *ngIf="(registeForm?.submitted||password?.touched)&&password.hasError('required')">password  required</div>
+                        <input type="password" id="form3Example4c" class="form-control" #password="ngModel" name="password" required [(ngModel)]="registerData.password" [ngClass]="{'error': (registeForm?.submitted||password?.touched)&&password.hasError('required')}"/>
+                        <label class="form-label" for="form3Example4c">Password</label>
+                      </div>
+                    </div>
+                    <!-- <div class="d-flex flex-row align-items-center mb-4">
+                      <div class="form-outline flex-fill mb-0">
+                        <input type="password" id="form3Example4cd" class="form-control" required [(ngModel)]="registerData.repeatPwd"/>
+                        <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                      </div>
+                    </div> -->
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <button type="submit" class="btn btn-primary btn-lg" routerLink="/sign in">Register</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,15 @@
+ <!-- Vendor Start -->
+ <div class="container-fluid py-5">
+    <div class="row px-xl-5">
+        <div class="col">
+            <owl-carousel-o [options]="Options">
+                <ng-template carouselSlide *ngFor="let image of carousalImage">
+                    <div class="bg-light p-4">
+                        <img src="http://192.168.1.175:5050{{image}}" alt="">
+                    </div>
+                </ng-template>
+              </owl-carousel-o>
+        </div>
+    </div>
+</div>
+<!-- Vendor End -->

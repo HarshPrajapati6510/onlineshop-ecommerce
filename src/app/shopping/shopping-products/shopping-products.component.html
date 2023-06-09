@@ -1,0 +1,206 @@
+<!-- Shop Product Start -->
+<div class="row pb-3">
+  <div class="col-12 pb-1">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <div>
+        <button class="btn btn-sm btn-light" (click)="productOrganize('block')">
+          <i class="fa fa-th-large"></i>
+        </button>
+        <button
+          class="btn btn-sm btn-light ml-2"
+          (click)="productOrganize('row')"
+        >
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+      <div class="ml-2">
+        <!-- <div
+          class="btn-group"
+          *ngFor="let btn of btnGrp; let last = last; let first = first"
+          [ngClass]="{ 'ml-2': last }"
+        >
+          <button
+            type="button"
+            class="btn btn-sm btn-light dropdown-toggle"
+            data-toggle="dropdown"
+          >
+            {{ btn.title | titlecase }}
+          </button>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a
+              class="dropdown-item"
+              (click)="sortingProducts(btn.title, dbtn)"
+              *ngFor="let dbtn of btn.btn"
+              >{{ dbtn | titlecase }}</a
+            >
+          </div>
+        </div> -->
+        <div class="btn-group">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="btn btn-sm btn-light dropdown-toggle"
+              ngbDropdownToggle
+            >
+              {{ sorting.title }}
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+              <button
+                ngbDropdownItem
+                type="button"
+                class="dropdown-item"
+                (click)="sortingProducts(ditem)"
+                *ngFor="let ditem of sorting.btn"
+              >
+                {{ ditem | titlecase }}
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="btn-group ml-2">
+          <div ngbDropdown class="d-inline-block">
+            <button
+              type="button"
+              class="btn btn-sm btn-light dropdown-toggle"
+              ngbDropdownToggle
+            >
+              {{ showing.title }}
+            </button>
+            <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+              <button
+                ngbDropdownItem
+                type="button"
+                class="dropdown-item"
+                *ngFor="let ditem of showing.btn"
+              >
+                {{ ditem | titlecase }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Cart Start -->
+    <table
+      class="table table-light table-borderless table-hover text-center mb-0"
+      *ngIf="tflag"
+    >
+      <thead class="thead-dark">
+        <tr>
+          <th></th>
+          <th>Products</th>
+          <th>Price</th>
+          <th>Rating</th>
+        </tr>
+      </thead>
+      <tbody class="align-middle">
+        <tr
+          *ngFor="
+            let product of productList
+              | paginate : { itemsPerPage: 6, currentPage: page, totalItems: totalProducts}
+          "
+        >
+          <td class="align-middle">
+            <img src="{{ product.image }}" alt="" style="width: 50px" />
+          </td>
+          <td class="align-middle d-flex justify-content-center text-left">
+            <div class="w-25">
+              <a
+                class="h6 text-decoration-none"
+                routerLink="/shop/shopdetails/{{ product.id }}"
+                >{{ product.title }}</a
+              >
+            </div>
+          </td>
+          <td class="align-middle">{{ product.price | currency }}</td>
+          <td class="align-middle">
+            <div class="d-flex align-items-center justify-content-center mb-1">
+              <ng-container *ngFor="let rate of totalRate; let i = index">
+                <ng-container *ngIf="i < math.floor(product.rating.rate)">
+                  <small class="fa fa-star text-primary mr-1"></small>
+                </ng-container>
+                <ng-container *ngIf="i == math.floor(product.rating.rate)">
+                  <small class="fa fa-star-half-alt text-primary mr-1"></small>
+                </ng-container>
+                <ng-container *ngIf="i > product.rating.rate">
+                  <small class="far fa-star text-primary mr-1"></small>
+                </ng-container>
+              </ng-container>
+              <small>({{ product.rating.count }})</small>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Cart End -->
+  </div>
+
+  <!-- <h3 *ngIf="productList==null">No matching products</h3> -->
+  <div
+    class="col-lg-4 col-md-6 col-sm-6 pb-1"
+    *ngFor="
+      let product of productList
+        | paginate : { itemsPerPage: 6, currentPage: page, totalItems: totalProducts };
+      let i = index
+    "
+  >
+    <div class="product-item bg-light mb-4" *ngIf="bflag">
+      <div class="product-img position-relative overflow-hidden">
+        <div style="width: 100%">
+          <img
+            class="img-fluid w-100"
+            src="{{ product.image }}"
+            alt=""
+            style="width: 100% !important; height: 400px"
+          />
+        </div>
+        <div class="product-action">
+          <a class="btn btn-outline-dark btn-square"
+            ><i class="fa fa-shopping-cart"></i
+          ></a>
+          <a class="btn btn-outline-dark btn-square" (click)="likeProducts(product._id)">
+            <i
+              class="far fa-heart"
+            ></i
+          ></a>
+          <a class="btn btn-outline-dark btn-square"
+            ><i class="fa fa-sync-alt"></i
+          ></a>
+          <a class="btn btn-outline-dark btn-square"
+            ><i class="fa fa-search"></i
+          ></a>
+        </div>
+      </div>
+      <div class="text-center py-4">
+        <div style="min-height: 60px">
+          <a
+            class="h6 text-decoration-none"
+            routerLink="/shop/shopdetails/{{ product._id }}"
+            >{{ product.title }}</a
+          >
+        </div>
+        <div class="d-flex align-items-center justify-content-center mt-2">
+          <h5>{{ product.price * currencyValue | currency : currencyName }}</h5>
+          <h6 class="text-muted ml-2"><del></del></h6>
+        </div>
+        <div class="d-flex align-items-center justify-content-center mb-1">
+          <ng-container *ngFor="let rate of totalRate; let i = index">
+            <ng-container *ngIf="i < math.floor(product.rating.rate)"
+              ><small class="fa fa-star text-primary mr-1"></small
+            ></ng-container>
+            <ng-container *ngIf="i == math.floor(product.rating.rate)"
+              ><small class="fa fa-star-half-alt text-primary mr-1"></small
+            ></ng-container>
+            <ng-container *ngIf="i > product.rating.rate"
+              ><small class="far fa-star text-primary mr-1"></small
+            ></ng-container>
+          </ng-container>
+          <small>({{ product.rating.count }})</small>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</div>
+<pagination-controls (pageChange)="pagination($event)" ></pagination-controls>
+<!-- Shop Product End -->

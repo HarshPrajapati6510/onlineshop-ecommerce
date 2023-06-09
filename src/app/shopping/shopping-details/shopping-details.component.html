@@ -1,0 +1,367 @@
+<div class="container-fluid pb-5">
+  <div class="row px-xl-5">
+    <div class="col-lg-5 mb-30">
+      <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide>
+          <div class="carousel-inner bg-light">
+            <div class="carousel-item active d-flex justify-content-center">
+              <img
+                class="w-75 h-75"
+                src="{{ singleProductDetail?.image }}"
+                alt="Image"
+                style="height: 523px !important"
+              />
+            </div>
+          </div>
+        </ng-template>
+        <ng-template carouselSlide>
+          <div class="carousel-inner bg-light">
+            <div class="carousel-item active d-flex justify-content-center">
+              <img
+                class="w-75 h-75"
+                src="{{ singleProductDetail?.image }}"
+                alt="Image"
+                style="height: 523px !important"
+              />
+            </div>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+
+    <div class="col-lg-7 h-auto mb-30">
+      <div class="h-100 bg-light p-30">
+        <h3>{{ singleProductDetail?.title }}</h3>
+        <div class="d-flex mb-3">
+          <div class="text-primary mr-2">
+            <ng-container *ngFor="let rate of totalRate; let i = index">
+              <ng-container
+                *ngIf="i < math.floor(singleProductDetail?.rating?.rate)"
+              >
+                <small class="fa fa-star text-primary mr-1"></small>
+              </ng-container>
+              <ng-container
+                *ngIf="i == math.floor(singleProductDetail?.rating?.rate)"
+              >
+                <small class="fa fa-star-half-alt text-primary mr-1"></small>
+              </ng-container>
+              <ng-container *ngIf="i > singleProductDetail?.rating?.rate">
+                <small class="far fa-star text-primary mr-1"></small>
+              </ng-container>
+            </ng-container>
+          </div>
+          <small class="pt-1">({{ singleProductDetail?.rating?.count }})</small>
+        </div>
+        <h3 class="font-weight-semi-bold mb-4">
+          {{
+            singleProductDetail?.price * currencyValue | currency : currencyName
+          }}
+        </h3>
+        <p class="mb-4">{{ singleProductDetail?.description }}</p>
+        <div class="d-flex mb-3" *ngFor="let item of productDetail.checkBox">
+          <strong class="text-dark mr-3">{{ item.title }}:</strong>
+          <form>
+            <div
+              class="custom-control custom-radio custom-control-inline"
+              *ngFor="let checkbox of item.input"
+            >
+              <input
+                type="radio"
+                class="custom-control-input"
+                id="size-1"
+                name="size"
+              />
+              <label class="custom-control-label" for="size-1">{{
+                checkbox
+              }}</label>
+            </div>
+          </form>
+        </div>
+        <div class="d-flex align-items-center mb-4 pt-2">
+          <div class="input-group quantity mr-3" style="width: 130px">
+            <div class="input-group-btn">
+              <button
+                class="btn btn-primary btn-minus"
+                (click)="quantityMinus()"
+              >
+                <i class="fa fa-minus"></i>
+              </button>
+            </div>
+            <input
+              type="text"
+              class="form-control bg-secondary border-0 text-center"
+              value="1"
+              [(ngModel)]="quantity"
+              (ngModelChange)="quantityChange()"
+            />
+            <div class="input-group-btn">
+              <button class="btn btn-primary btn-plus" (click)="quantityPlus()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <button class="btn btn-primary px-3" (click)="addToCart()">
+            <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
+          </button>
+        </div>
+        <div class="d-flex pt-2">
+          <strong class="text-dark mr-2">Share on:</strong>
+          <div class="d-inline-flex">
+            <a class="text-dark px-2">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a class="text-dark px-2">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a class="text-dark px-2">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a class="text-dark px-2">
+              <i class="fab fa-pinterest"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row px-xl-5">
+    <div class="col">
+      <div class="bg-light p-30">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs mb-4">
+          <li [ngbNavItem]="1" style="border: none !important">
+            <button ngbNavLink>Description</button>
+            <ng-template ngbNavContent>
+              <div class="tab-pane fade show active">
+                <h4 class="mb-3">Product Description</h4>
+                <p>
+                  Eos no lorem eirmod diam diam, eos elitr et gubergren diam
+                  sea. Consetetur vero aliquyam invidunt duo dolores et duo sit.
+                  Vero diam ea vero et dolore rebum, dolor rebum eirmod
+                  consetetur invidunt sed sed et, lorem duo et eos elitr,
+                  sadipscing kasd ipsum rebum diam. Dolore diam stet rebum sed
+                  tempor kasd eirmod. Takimata kasd ipsum accusam sadipscing,
+                  eos dolores sit no ut diam consetetur duo justo est, sit
+                  sanctus diam tempor aliquyam eirmod nonumy rebum dolor
+                  accusam, ipsum kasd eos consetetur at sit rebum, diam kasd
+                  invidunt tempor lorem, ipsum lorem elitr sanctus eirmod
+                  takimata dolor ea invidunt.
+                </p>
+                <p>
+                  Dolore magna est eirmod sanctus dolor, amet diam et eirmod et
+                  ipsum. Amet dolore tempor consetetur sed lorem dolor sit lorem
+                  tempor. Gubergren amet amet labore sadipscing clita clita diam
+                  clita. Sea amet et sed ipsum lorem elitr et, amet et labore
+                  voluptua sit rebum. Ea erat sed et diam takimata sed justo.
+                  Magna takimata justo et amet magna et.
+                </p>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="2">
+            <button ngbNavLink>Information</button>
+            <ng-template ngbNavContent>
+              <h4 class="mb-3">Additional Information</h4>
+              <p>
+                Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea.
+                Consetetur vero aliquyam invidunt duo dolores et duo sit. Vero
+                diam ea vero et dolore rebum, dolor rebum eirmod consetetur
+                invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd
+                ipsum rebum diam. Dolore diam stet rebum sed tempor kasd eirmod.
+                Takimata kasd ipsum accusam sadipscing, eos dolores sit no ut
+                diam consetetur duo justo est, sit sanctus diam tempor aliquyam
+                eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at
+                sit rebum, diam kasd invidunt tempor lorem, ipsum lorem elitr
+                sanctus eirmod takimata dolor ea invidunt.
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0">
+                      Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                    </li>
+                    <li class="list-group-item px-0">
+                      Amet kasd gubergren sit sanctus et lorem eos sadipscing
+                      at.
+                    </li>
+                    <li class="list-group-item px-0">
+                      Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                    </li>
+                    <li class="list-group-item px-0">
+                      Takimata ea clita labore amet ipsum erat justo voluptua.
+                      Nonumy.
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item px-0">
+                      Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                    </li>
+                    <li class="list-group-item px-0">
+                      Amet kasd gubergren sit sanctus et lorem eos sadipscing
+                      at.
+                    </li>
+                    <li class="list-group-item px-0">
+                      Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                    </li>
+                    <li class="list-group-item px-0">
+                      Takimata ea clita labore amet ipsum erat justo voluptua.
+                      Nonumy.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+          <li [ngbNavItem]="3">
+            <button ngbNavLink>Reviews</button>
+            <ng-template ngbNavContent>
+              <div class="row">
+                <div class="col-md-6" >
+                  <h4 class="mb-4">1 review for "Product Name"</h4>
+                  <div class="media mb-4" *ngFor="let review of reviewList">
+                    <img
+                      src="assets/img/user.jpg"
+                      alt="Image"
+                      class="img-fluid mr-3 mt-1"
+                      style="width: 45px"
+                    />
+                    <div class="media-body">
+                      <h6>
+                        {{review?.firstName}} {{review?.lastName}}<small> - <i>{{review?.date}}</i></small>
+                      </h6>
+                      <div class="text-primary mb-2 product-rating">
+                        <ng-container *ngFor="let item of [1,2,3,4,5,6];let i=index">
+                            <small class="text-primary mr-1" [ngClass]="{'fa fa-star': review.rating-i>=0&&!(review.rating-i<1)}"></small>
+                            <small class="text-primary mr-1" [ngClass]="{'fa fa-star-half-alt': review.rating-i>0&&review.rating-i<1}"></small>
+                            <small class="text-primary mr-1" [ngClass]="{'far fa-star': review.rating-i<0}"></small>
+                        </ng-container>
+                      </div>
+                      <p>
+                        {{review?.review}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <h4 class="mb-4">Leave a review</h4>
+                  <small
+                    >Your email address will not be published. Required fields
+                    are marked *</small
+                  >
+                  <div class="d-flex my-3">
+                    <div>
+                      <p class="mb-0 mr-2">Your Rating * :</p>
+                    </div>
+                    <div class="text-primary product-rating">
+                      <ngb-rating [max]="5" [(rate)]="selected"></ngb-rating>
+                    </div>
+                  </div>
+                  <form>
+                    <div class="form-group">
+                      <label for="message">Your Review *</label>
+                      <textarea
+                      [(ngModel)]="reviewProductRating"
+                      name="review"
+                        cols="30"
+                        rows="5"
+                        class="form-control"
+                      ></textarea>
+                    </div>
+                    <div class="form-group mb-0">
+                      <input
+                        type="submit"
+                        value="Leave Your Review"
+                        class="btn btn-primary px-3"
+                        (click)="reviewRating()"
+                      />
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        <!--ngb bootstrap end-->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Shop Detail End -->
+<!-- Products Start -->
+<div class="container-fluid py-5">
+  <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+    <span class="bg-secondary pr-3">You May Also Like</span>
+  </h2>
+  <div class="row px-xl-5">
+    <div class="col">
+      <owl-carousel-o [options]="Options">
+        <ng-template carouselSlide *ngFor="let product of productList">
+          <!-- <div class="slide"> -->
+          <div class="related-carousel">
+            <div class="product-item bg-light">
+              <div class="product-img position-relative overflow-hidden">
+                <div style="width: 100%">
+                  <img
+                    class="img-fluid w-100"
+                    src="{{ product.image }}"
+                    alt=""
+                    style="width: 100% !important; height: 400px"
+                  />
+                </div>
+                <div class="product-action">
+                  <a
+                    class="btn btn-outline-dark btn-square"
+                    *ngFor="let icon of iconList"
+                    ><i class="{{ icon }}"></i
+                  ></a>
+                </div>
+              </div>
+              <div class="text-center py-4">
+                <div style="min-height: 60px">
+                  <a
+                    class="h6 text-decoration-none"
+                    routerLink="/shop/shopdetails/{{ product.id }}"
+                    >{{ product.title }}</a
+                  >
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-center mt-2"
+                >
+                  <h5>
+                    {{
+                      product.price * currencyValue | currency : currencyName
+                    }}
+                  </h5>
+                  <h6 class="text-muted ml-2"><del></del></h6>
+                </div>
+                <div
+                  class="d-flex align-items-center justify-content-center mb-1"
+                >
+                  <ng-container *ngFor="let rate of totalRate; let i = index">
+                    <ng-container *ngIf="i < math.floor(product.rating.rate)">
+                      <small class="fa fa-star text-primary mr-1"></small>
+                    </ng-container>
+                    <ng-container *ngIf="i == math.floor(product.rating.rate)">
+                      <small
+                        class="fa fa-star-half-alt text-primary mr-1"
+                      ></small>
+                    </ng-container>
+                    <ng-container *ngIf="i > product.rating.rate">
+                      <small class="far fa-star text-primary mr-1"></small>
+                    </ng-container>
+                  </ng-container>
+                  <small>({{ product.rating.count }})</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+  </div>
+</div>
+<!-- Products End -->
+

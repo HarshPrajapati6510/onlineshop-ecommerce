@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+.bottom-to-top {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    z-index: 11;
+    animation: action 1s infinite alternate;
+    animation-duration: 1s;
+    animation-timing-function: ease;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-fill-mode: none;
+    animation-play-state: running;
+    animation-name: action;
+}
+.skiptranslate{
+    display: none;
+    
+}
+body{
+    top: 0px !important;;
+}
+.product-rating {
+    ngb-rating {
+    font-size: 2rem;
+        .visually-hidden{
+            display: none !important;
+        }
+    }
+}
+

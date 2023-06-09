@@ -1,0 +1,42 @@
+<!-- partial:index.partial.html -->
+<div id="login-form-wrap">
+  <h2>Login</h2>
+  <form id="login-form" name="loginForm" #loginForm="ngForm" (ngSubmit)="loginForm.form.valid&&(loginBtn(loginForm))">
+    <p>
+      
+      <input
+        type="email"
+        
+        name="email"
+        placeholder="Email"
+        #email="ngModel"
+        required
+        [(ngModel)]="logindata.email"
+      /><i class="validation" ><span></span><span></span></i>
+      <span style="color: red; text-align: start;" *ngIf="(loginForm.submitted||email?.touched)&&(email.hasError('required'))">email required</span>
+    </p>
+    <p>
+      <input
+        type="password"
+        id="email"
+        name="email"
+        placeholder="Password"
+        [(ngModel)]="logindata.password"
+        #password="ngModel"
+        required
+      /><i class="validation"><span></span><span></span></i>
+      <span  class="text-danger" *ngIf="(loginForm?.submitted||password?.touched)&&(password.hasError('required'))">password required</span>
+    </p>
+    <p>
+      <input type="submit" id="login" value="Login"/>
+    </p>
+  </form>
+  <div id="create-account-wrap">
+    <p>Not a member? <a routerLink="/sign up">Create Account</a></p>
+    <p></p>
+  </div>
+
+  <!--create-account-wrap-->
+</div>
+<!--login-form-wrap-->
+<!-- partial -->
